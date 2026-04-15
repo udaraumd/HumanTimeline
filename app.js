@@ -24,6 +24,9 @@ const state = {
   density: "high",
   selectedEventId: null,
   locale: "en",
+  theme:
+    localStorage.getItem("atlas-theme") ||
+    (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"),
 };
 
 const timeline = document.getElementById("timeline");
@@ -41,6 +44,7 @@ const spotlightTitle = document.getElementById("spotlightTitle");
 const eraFilters = document.getElementById("eraFilters");
 const religionFilters = document.getElementById("religionFilters");
 const heroStats = document.getElementById("heroStats");
+const root = document.body;
 
 const ALL_ERAS = [...new Set(HISTORY_DATA.map((entry) => entry.era))];
 const PRESENT_YEAR = 2026;
@@ -94,6 +98,14 @@ function localizedLookup(map, key) {
 
 function formatTemplate(template, count) {
   return String(template).replace("{count}", count.toLocaleString());
+}
+
+function applyTheme() {
+  root.dataset.theme = state.theme;
+  document.querySelectorAll(".theme-button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.theme === state.theme);
+  });
+  localStorage.setItem("atlas-theme", state.theme);
 }
 
 function formatYear(year) {
@@ -366,6 +378,8 @@ function applyStaticTranslations() {
   document.getElementById("heroText").textContent = t("heroText");
   document.getElementById("jumpToOrigins").textContent = t("jumpToOrigins");
   document.getElementById("jumpToToday").textContent = t("jumpToToday");
+  document.getElementById("themeDark").textContent = t("themeDark");
+  document.getElementById("themeLight").textContent = t("themeLight");
   document.getElementById("spotlightEyebrow").textContent = t("spotlightEyebrow");
   document.getElementById("yearRangeLabel").textContent = t("yearRangeLabel");
   document.getElementById("yearSearchLabel").textContent = t("yearSearchLabel");
@@ -394,6 +408,7 @@ function applyStaticTranslations() {
 }
 
 function render() {
+  applyTheme();
   applyStaticTranslations();
   buildStats();
   buildEraFilters();
@@ -456,6 +471,13 @@ document.getElementById("jumpToOrigins").addEventListener("click", () => {
 document.querySelectorAll(".lang-button").forEach((button) => {
   button.addEventListener("click", () => {
     state.locale = button.dataset.lang;
+    render();
+  });
+});
+
+document.querySelectorAll(".theme-button").forEach((button) => {
+  button.addEventListener("click", () => {
+    state.theme = button.dataset.theme;
     render();
   });
 });
