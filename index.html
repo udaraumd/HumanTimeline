@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Human Story Atlas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero-stage">
+        <section class="hero-intro panel-card">
+          <div class="hero-topbar">
+            <p id="appEyebrow" class="eyebrow">Interactive World History Timeline</p>
+            <div class="language-switch" aria-label="Language switcher">
+              <button class="lang-button active" data-lang="en">English</button>
+              <button class="lang-button" data-lang="si">සිංහල</button>
+            </div>
+          </div>
+          <h1 id="heroTitle">Human Story Atlas</h1>
+          <p id="heroText" class="hero-text">
+            Sweep across the full human story through a dynamic atlas of
+            migrations, religions, empires, technologies, revolutions, and
+            modern turning points.
+          </p>
+          <div class="hero-actions">
+            <button id="jumpToOrigins" class="secondary-button">Start at the Origins</button>
+            <button id="jumpToToday" class="primary-button">Jump to Today</button>
+          </div>
+        </section>
+
+        <section class="hero-spotlight panel-card">
+          <div class="spotlight-topline">
+            <p id="spotlightEyebrow" class="eyebrow">Live Spotlight</p>
+            <span id="yearDistance" class="year-distance">302,026 years ago</span>
+          </div>
+          <div class="spotlight-grid">
+            <div>
+              <p id="yearValue" class="spotlight-year">300,000 BCE</p>
+              <h2 id="spotlightTitle">Tracing the first known humans</h2>
+              <p id="yearContext" class="spotlight-context">
+                Tracking the earliest known humans
+              </p>
+            </div>
+            <div class="spotlight-rings" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="hero-stats" id="heroStats"></div>
+        </section>
+      </header>
+
+      <main class="app-grid">
+        <section class="control-dock panel-card">
+          <div class="dock-block dock-block-wide">
+            <label id="yearRangeLabel" class="field-label" for="yearRange">Timeline navigator</label>
+            <input id="yearRange" type="range" min="-300000" max="2026" step="1" />
+          </div>
+
+          <div class="dock-block">
+            <label id="yearSearchLabel" class="field-label" for="yearSearch">Jump to a year</label>
+            <div class="search-row">
+              <input
+                id="yearSearch"
+                type="number"
+                min="-300000"
+                max="2026"
+                placeholder="Use BCE as negative"
+              />
+              <button id="goToYear" class="secondary-button compact-button">Go</button>
+            </div>
+            <p id="yearSearchHelp" class="helper-text">Example: `-563`, `476`, `1947`.</p>
+          </div>
+
+          <div class="dock-block">
+            <p id="densityLabel" class="field-label">View density</p>
+            <div class="mode-switch">
+              <button class="mode-button active" data-density="high">Detailed</button>
+              <button class="mode-button" data-density="medium">Balanced</button>
+              <button class="mode-button" data-density="low">Highlights</button>
+            </div>
+          </div>
+
+          <div class="dock-block dock-filters">
+            <div class="filters-header">
+              <p id="filterLibraryLabel" class="field-label">Filter library</p>
+              <span id="filtersCaption" class="filters-caption">Independent scroll area</span>
+            </div>
+            <div class="filters-scroll">
+              <div class="filter-group">
+                <p id="eraFiltersLabel" class="field-label">Era filters</p>
+                <div id="eraFilters" class="filter-stack"></div>
+              </div>
+
+              <div class="filter-group">
+                <p id="religionFiltersLabel" class="field-label">Religion filters</p>
+                <div id="religionFilters" class="filter-stack"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="timeline-column panel-card">
+          <div class="timeline-toolbar">
+            <div>
+              <p id="timelineEyebrow" class="eyebrow">Timeline Feed</p>
+              <h2 id="resultsHeading">Moments across all eras</h2>
+            </div>
+            <p id="resultsCount" class="results-count"></p>
+          </div>
+          <div id="timeline" class="timeline"></div>
+        </section>
+
+        <aside class="insight-column">
+          <section class="detail-card panel-card">
+            <p id="selectedMomentEyebrow" class="eyebrow">Selected Moment</p>
+            <h2 id="detailTitle">Choose an event on the timeline</h2>
+            <p id="detailDate" class="detail-date">A date will appear here.</p>
+            <p id="detailBody" class="detail-body">
+              This panel explains the selected milestone, why it mattered, and
+              what larger era it belonged to.
+            </p>
+            <div id="detailMeta" class="detail-meta"></div>
+          </section>
+
+          <section class="legend-card panel-card">
+            <p id="readingGuideEyebrow" class="eyebrow">Reading Guide</p>
+            <ul>
+              <li id="guideItem1">Use the top navigator to jump across centuries in seconds.</li>
+              <li id="guideItem2">Click any card to lock that event into the insight panel.</li>
+              <li id="guideItem3">Combine era and religion filters to compare different worldviews.</li>
+              <li id="guideItem4">Highlights mode compresses the feed to only major pivots.</li>
+            </ul>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./data.js"></script>
+    <script src="./translations.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
