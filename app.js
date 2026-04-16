@@ -39,6 +39,7 @@ const resultsCount = document.getElementById("resultsCount");
 const detailTitle = document.getElementById("detailTitle");
 const detailDate = document.getElementById("detailDate");
 const detailBody = document.getElementById("detailBody");
+const detailActions = document.getElementById("detailActions");
 const detailMeta = document.getElementById("detailMeta");
 const spotlightTitle = document.getElementById("spotlightTitle");
 const eraFilters = document.getElementById("eraFilters");
@@ -157,7 +158,21 @@ function getDetailBody(entry) {
       `${getEventTitle(entry)} ලෝක ඉතිහාසයේ වැදගත් සිදුවීමකි.`
     );
   }
-  return `${entry.description} ${entry.impact}`;
+  return entry.details || `${entry.description} ${entry.impact}`;
+}
+
+function renderWikipediaLink(entry, className = "wiki-link") {
+  if (!entry.wikipediaUrl) return "";
+  return `
+    <a
+      class="${className}"
+      href="${entry.wikipediaUrl}"
+      target="_blank"
+      rel="noreferrer"
+    >
+      ${t("wikipediaLink")}
+    </a>
+  `;
 }
 
 function renderImageBlock(entry) {
@@ -306,6 +321,9 @@ function renderTimeline(entries) {
           <h3>${getEventTitle(entry)}</h3>
           ${renderImageBlock(entry)}
           <p>${getEventSummary(entry)}</p>
+          <div class="timeline-actions">
+            ${renderWikipediaLink(entry)}
+          </div>
           <div class="timeline-meta">
             <span>${entry.region}</span>
             <span>${localizeReligion(toMainReligion(entry.religion))}</span>
@@ -338,6 +356,7 @@ function updateSelectedDetail(event) {
     event.year
   )} • ${localizeEra(event.era)}`;
   detailBody.textContent = getDetailBody(event);
+  detailActions.innerHTML = renderWikipediaLink(event, "wiki-link wiki-link-detail");
   detailMeta.innerHTML = `
     <span>${t("regionLabel")}: ${event.region}</span>
     <span>${t("religionLabel")}: ${localizeReligion(
@@ -368,6 +387,7 @@ function syncNearestEvent(entries) {
     detailTitle.textContent = t("noEventTitle");
     detailDate.textContent = t("noEventDate");
     detailBody.textContent = t("noEventBody");
+    detailActions.innerHTML = "";
     detailMeta.innerHTML = "";
   }
 }

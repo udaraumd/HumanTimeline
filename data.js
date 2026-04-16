@@ -1,4 +1,4 @@
-const HISTORY_DATA = [
+const BASE_HISTORY_DATA = [
   {
     year: -300000,
     title: "Earliest Known Homo sapiens",
@@ -1338,3 +1338,1273 @@ const HISTORY_DATA = [
       "Today's world history is still being written, and the decisions made now will define the next era on the timeline.",
   },
 ];
+
+function milestone(
+  year,
+  title,
+  era,
+  region,
+  religion,
+  importance,
+  description,
+  impact,
+  wikipediaTitle,
+  details
+) {
+  return {
+    year,
+    title,
+    era,
+    region,
+    religion,
+    importance,
+    description,
+    impact,
+    wikipediaTitle,
+    details,
+  };
+}
+
+function buildWikipediaUrl(entry) {
+  if (entry.wikipediaUrl) return entry.wikipediaUrl;
+  if (entry.wikipediaTitle) {
+    return `https://en.wikipedia.org/wiki/${encodeURIComponent(
+      entry.wikipediaTitle.replaceAll(" ", "_")
+    )}`;
+  }
+  return `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(
+    entry.title
+  )}`;
+}
+
+function buildEventDetails(entry) {
+  if (entry.details) return entry.details;
+  return `${entry.description} ${entry.impact} This milestone sits within the ${
+    entry.era
+  } era and is tracked in ${entry.region} under ${entry.religion}.`;
+}
+
+function normalizeHistoryEntry(entry) {
+  return {
+    ...entry,
+    details: buildEventDetails(entry),
+    wikipediaUrl: buildWikipediaUrl(entry),
+  };
+}
+
+const SUPPLEMENTAL_HISTORY_DATA = [
+  milestone(
+    -400000,
+    "Controlled Use of Fire Becomes Widespread",
+    "Origins",
+    "Africa and Eurasia",
+    "Pre-religious / Early Belief Systems",
+    "medium",
+    "Regular use of fire changes diet, safety, social gathering, and migration possibilities for early humans.",
+    "Fire became one of humanity's foundational technologies, supporting cooking, protection, and survival in new environments.",
+    "Control_of_fire_by_early_humans"
+  ),
+  milestone(
+    -100000,
+    "Early Burials Suggest Symbolic Thought",
+    "Origins",
+    "Africa and Eurasia",
+    "Pre-religious / Early Belief Systems",
+    "medium",
+    "Some early human communities appear to bury their dead intentionally, hinting at ritual or symbolic behavior.",
+    "These practices suggest expanding capacities for memory, identity, and shared meaning in human communities.",
+    "Intentional_burial"
+  ),
+  milestone(
+    -40000,
+    "Cave Art and Symbolic Culture Flourish",
+    "Origins",
+    "Europe, Africa, Asia",
+    "Pre-religious / Early Belief Systems",
+    "medium",
+    "Painted caves, ornaments, and carved objects point to rich symbolic cultures among early humans.",
+    "Visual culture, ritual, and storytelling became enduring parts of human social life.",
+    "Cave_painting"
+  ),
+  milestone(
+    -16000,
+    "Human Communities Spread Across the Americas",
+    "Origins",
+    "North and South America",
+    "Pre-religious / Early Belief Systems",
+    "medium",
+    "By the late Ice Age, human societies are established across wide parts of the Americas.",
+    "This expansion created the foundations for the many civilizations and cultures of the American continents.",
+    "Settlement_of_the_Americas"
+  ),
+  milestone(
+    -9600,
+    "Gobekli Tepe Ritual Complex Emerges",
+    "Origins",
+    "Anatolia",
+    "Ancient / Indigenous Traditions",
+    "medium",
+    "Monumental stone enclosures at Gobekli Tepe suggest organized ritual activity before large settled states.",
+    "The site reshaped debates about religion, labor, and social organization in prehistory.",
+    "Gobekli_Tepe"
+  ),
+  milestone(
+    -7500,
+    "Catalhoyuk Develops as a Large Early Settlement",
+    "Origins",
+    "Anatolia",
+    "Ancient / Indigenous Traditions",
+    "medium",
+    "Catalhoyuk becomes one of the best-known large Neolithic settlements with dense housing and wall art.",
+    "It provides a major window into early village life, ritual, and changing social organization.",
+    "Çatalhöyük"
+  ),
+  milestone(
+    -3500,
+    "Wheel and Wagon Technologies Spread",
+    "Origins",
+    "Eurasia",
+    "Ancient / Indigenous Traditions",
+    "medium",
+    "Wheel-based transport and related technologies spread across parts of Eurasia.",
+    "These innovations transformed mobility, agriculture, warfare, and long-distance exchange.",
+    "Wheel"
+  ),
+  milestone(
+    -3300,
+    "Bronze Metallurgy Reshapes Early Societies",
+    "Origins",
+    "Southwest Asia and beyond",
+    "Ancient / Indigenous Traditions",
+    "medium",
+    "Bronze tools and weapons become increasingly important in early complex societies.",
+    "Metallurgy supported new forms of craft specialization, warfare, prestige, and trade.",
+    "Bronze_Age"
+  ),
+  milestone(
+    -4000,
+    "Uruk Urban Expansion Marks the City Revolution",
+    "Ancient Civilizations",
+    "Mesopotamia",
+    "Ancient Polytheism",
+    "high",
+    "Uruk grows into one of the world's earliest true cities with temples, officials, and specialized labor.",
+    "It became a benchmark for urbanization, administration, and early state development.",
+    "Uruk"
+  ),
+  milestone(
+    -2900,
+    "Sumerian City-States Compete for Power",
+    "Ancient Civilizations",
+    "Mesopotamia",
+    "Ancient Polytheism",
+    "medium",
+    "Independent city-states such as Ur, Uruk, and Lagash dominate southern Mesopotamian politics.",
+    "Their rivalry helped shape kingship, warfare, writing, and temple economies.",
+    "Sumer"
+  ),
+  milestone(
+    -2686,
+    "Egyptian Old Kingdom Builds Monumental Kingship",
+    "Ancient Civilizations",
+    "Nile Valley",
+    "Ancient Polytheism",
+    "medium",
+    "The Old Kingdom period saw the strengthening of pharaonic authority and the construction of monumental tombs.",
+    "It set lasting models for Egyptian statecraft, religion, and architecture.",
+    "Old_Kingdom_of_Egypt"
+  ),
+  milestone(
+    -2334,
+    "Akkadian Empire Unifies Much of Mesopotamia",
+    "Ancient Civilizations",
+    "Mesopotamia",
+    "Ancient Polytheism",
+    "medium",
+    "Sargon of Akkad establishes one of history's earliest territorial empires.",
+    "The Akkadian example showed how conquest and administration could bind multiple regions together.",
+    "Akkadian_Empire"
+  ),
+  milestone(
+    -2000,
+    "Minoan Civilization Expands in the Aegean",
+    "Ancient Civilizations",
+    "Crete and the Aegean",
+    "Ancient Polytheism",
+    "medium",
+    "Minoan palaces and maritime exchange shape early Bronze Age networks in the eastern Mediterranean.",
+    "Their influence helped define the interconnected Aegean world before classical Greece.",
+    "Minoan_civilization"
+  ),
+  milestone(
+    -1600,
+    "Shang Dynasty Consolidates Bronze Age Rule",
+    "Ancient Civilizations",
+    "China",
+    "Confucian / Chinese Traditions",
+    "medium",
+    "The Shang dynasty strengthens royal rule, ritual bronze culture, and early Chinese writing traditions.",
+    "It became a foundational reference point for later Chinese political and cultural history.",
+    "Shang_dynasty"
+  ),
+  milestone(
+    -1500,
+    "Vedic Traditions Spread Across North India",
+    "Ancient Civilizations",
+    "South Asia",
+    "Hinduism",
+    "medium",
+    "Vedic ritual culture and Sanskrit traditions develop across northern South Asia.",
+    "These traditions became central to later Hindu thought, social practice, and literature.",
+    "Vedic_period"
+  ),
+  milestone(
+    -1200,
+    "Phoenician Maritime Networks Connect the Mediterranean",
+    "Ancient Civilizations",
+    "Eastern Mediterranean",
+    "Ancient Polytheism",
+    "medium",
+    "Phoenician traders and sailors help link ports, colonies, and exchange systems across the Mediterranean.",
+    "Their networks accelerated commerce, cultural contact, and alphabetic transmission.",
+    "Phoenicia"
+  ),
+  milestone(
+    -1046,
+    "Zhou Dynasty Establishes the Mandate of Heaven",
+    "Ancient Civilizations",
+    "China",
+    "Confucian / Chinese Traditions",
+    "medium",
+    "The Zhou overthrow the Shang and articulate ideas of moral legitimacy in rulership.",
+    "The Mandate of Heaven became one of East Asia's most enduring political concepts.",
+    "Zhou_dynasty"
+  ),
+  milestone(
+    -900,
+    "Neo-Assyrian Power Expands Across the Near East",
+    "Ancient Civilizations",
+    "Mesopotamia and the Levant",
+    "Ancient Polytheism",
+    "medium",
+    "Assyrian rulers build a formidable military empire across much of the Near East.",
+    "Their imperial methods influenced later states in administration, warfare, and monumentality.",
+    "Neo-Assyrian_Empire"
+  ),
+  milestone(
+    -814,
+    "Carthage Rises as a Western Mediterranean Power",
+    "Ancient Civilizations",
+    "North Africa",
+    "Ancient Polytheism",
+    "medium",
+    "Carthage grows from Phoenician roots into a major commercial and naval center.",
+    "It became Rome's greatest early rival and a defining force in Mediterranean history.",
+    "Carthage"
+  ),
+  milestone(
+    -753,
+    "Traditional Founding of Rome",
+    "Ancient Civilizations",
+    "Italy",
+    "Ancient Polytheism",
+    "medium",
+    "Roman tradition places the founding of the city in 753 BCE.",
+    "Whether legendary or not, the date became central to Roman identity and later world memory.",
+    "Founding_of_Rome"
+  ),
+  milestone(
+    -722,
+    "Kingdom of Israel Falls to Assyria",
+    "Ancient Civilizations",
+    "Levant",
+    "Judaism",
+    "medium",
+    "The northern kingdom of Israel falls under Assyrian conquest.",
+    "The event deeply shaped the political and religious history of the ancient Levant.",
+    "Kingdom_of_Israel_(Samaria)"
+  ),
+  milestone(
+    -612,
+    "Fall of Nineveh Ends Assyrian Dominance",
+    "Ancient Civilizations",
+    "Mesopotamia",
+    "Ancient Polytheism",
+    "medium",
+    "Coalitions overthrow Nineveh, shattering Assyrian imperial supremacy.",
+    "Its collapse reordered power across Mesopotamia and the Near East.",
+    "Fall_of_Nineveh"
+  ),
+  milestone(
+    -550,
+    "Achaemenid Persian Empire Forms",
+    "Ancient Civilizations",
+    "Iran and Southwest Asia",
+    "Ancient Polytheism",
+    "high",
+    "Cyrus the Great creates a large imperial state across western Asia.",
+    "Persia became a model of imperial administration, tolerance strategies, and long-distance governance.",
+    "Achaemenid_Empire"
+  ),
+  milestone(
+    -509,
+    "Athenian Political Reforms Deepen Civic Participation",
+    "Classical World",
+    "Greece",
+    "Ancient Polytheism",
+    "medium",
+    "Reforms associated with Cleisthenes reshape the institutions of Athens.",
+    "Athens became a key historical reference for democracy, citizenship, and public debate.",
+    "Cleisthenes"
+  ),
+  milestone(
+    -490,
+    "Battle of Marathon Enters Greek Memory",
+    "Classical World",
+    "Greece",
+    "Ancient Polytheism",
+    "medium",
+    "Athenians defeat a Persian force at Marathon during the Greco-Persian Wars.",
+    "The battle became a powerful symbol of civic endurance and political independence.",
+    "Battle_of_Marathon"
+  ),
+  milestone(
+    -480,
+    "Persian Wars Transform the Greek World",
+    "Classical World",
+    "Greece and Persia",
+    "Ancient Polytheism",
+    "medium",
+    "Major conflicts between Greek states and the Persian Empire reshape alliances and identity.",
+    "These wars influenced the future of classical Greece and its political imagination.",
+    "Greco-Persian_Wars"
+  ),
+  milestone(
+    -461,
+    "Athenian Golden Age of Building and Culture Begins",
+    "Classical World",
+    "Greece",
+    "Ancient Polytheism",
+    "medium",
+    "Athens enters a period associated with drama, architecture, philosophy, and imperial confidence.",
+    "Its cultural production became foundational to later Western canon formation.",
+    "Age_of_Pericles"
+  ),
+  milestone(
+    -431,
+    "Peloponnesian War Weakens the Greek City-States",
+    "Classical World",
+    "Greece",
+    "Ancient Polytheism",
+    "medium",
+    "Athens and Sparta lead rival coalitions into a long and devastating war.",
+    "The conflict destabilized the Greek world and altered the balance of power.",
+    "Peloponnesian_War"
+  ),
+  milestone(
+    -399,
+    "Trial and Death of Socrates",
+    "Classical World",
+    "Greece",
+    "Ancient Polytheism",
+    "low",
+    "The execution of Socrates becomes one of the defining episodes in the history of philosophy.",
+    "It raised lasting questions about citizenship, dissent, and truth in public life.",
+    "Trial_of_Socrates"
+  ),
+  milestone(
+    -327,
+    "Mauryan Expansion Begins in South Asia",
+    "Classical World",
+    "South Asia",
+    "Hinduism",
+    "medium",
+    "The Mauryan state expands under Chandragupta, building one of the largest early South Asian empires.",
+    "Its institutions influenced kingship, administration, and political thought across the subcontinent.",
+    "Maurya_Empire"
+  ),
+  milestone(
+    -264,
+    "Punic Wars Begin Between Rome and Carthage",
+    "Classical World",
+    "Mediterranean",
+    "Ancient Polytheism",
+    "medium",
+    "Rome and Carthage enter a series of major wars over trade, territory, and military power.",
+    "The conflict accelerated Rome's transformation into a Mediterranean empire.",
+    "Punic_Wars"
+  ),
+  milestone(
+    -202,
+    "Han Dynasty Consolidates Imperial China",
+    "Classical World",
+    "China",
+    "Confucian / Chinese Traditions",
+    "high",
+    "The Han dynasty stabilizes imperial rule and expands state institutions.",
+    "Han governance, scholarship, and identity deeply shaped East Asian history.",
+    "Han_dynasty"
+  ),
+  milestone(
+    -146,
+    "Rome Destroys Carthage",
+    "Classical World",
+    "Mediterranean",
+    "Ancient Polytheism",
+    "medium",
+    "Rome's destruction of Carthage confirms its dominance in the western Mediterranean.",
+    "This moment symbolized the violent expansion of Roman imperial power.",
+    "Siege_of_Carthage_(149–146_BC)"
+  ),
+  milestone(
+    -130,
+    "Silk Road Exchange Begins to Deepen",
+    "Classical World",
+    "Eurasia",
+    "Religiously Diverse",
+    "medium",
+    "Routes linking East Asia, Central Asia, and western Eurasia become more active in trade and diplomacy.",
+    "These connections moved goods, religions, technologies, and diseases across continents.",
+    "Silk_Road"
+  ),
+  milestone(
+    -44,
+    "Julius Caesar Is Assassinated",
+    "Classical World",
+    "Rome",
+    "Ancient Polytheism",
+    "medium",
+    "Caesar's assassination triggers a new cycle of civil wars in Rome.",
+    "The event hastened the collapse of the Roman Republic and rise of imperial rule.",
+    "Assassination_of_Julius_Caesar"
+  ),
+  milestone(
+    4,
+    "Approximate Lifetime of Jesus Shapes Christian Memory",
+    "Classical World",
+    "Roman Judea",
+    "Christianity",
+    "high",
+    "The life and teachings of Jesus become the foundation of Christianity.",
+    "Christianity would grow into one of the world's largest religions with global historical impact.",
+    "Jesus"
+  ),
+  milestone(
+    70,
+    "Second Temple Is Destroyed in Jerusalem",
+    "Post-Classical",
+    "Levant",
+    "Judaism",
+    "high",
+    "Roman forces destroy the Second Temple after revolt in Judea.",
+    "The event transformed Jewish religious life and remains central to Jewish historical memory.",
+    "Siege_of_Jerusalem_(70_CE)"
+  ),
+  milestone(
+    220,
+    "Three Kingdoms Era Begins in China",
+    "Post-Classical",
+    "China",
+    "Confucian / Chinese Traditions",
+    "medium",
+    "The Han collapse gives way to a famous age of competing states.",
+    "The era became deeply influential in East Asian literature, memory, and political culture.",
+    "Three_Kingdoms"
+  ),
+  milestone(
+    376,
+    "Christianity Becomes State Religion of the Roman Empire",
+    "Post-Classical",
+    "Roman Empire",
+    "Christianity",
+    "medium",
+    "Imperial power now formally aligns with Nicene Christianity.",
+    "This helped entrench Christian institutions across late antiquity and medieval Europe.",
+    "State_church_of_the_Roman_Empire"
+  ),
+  milestone(
+    410,
+    "Sack of Rome Shocks the Late Roman World",
+    "Post-Classical",
+    "Western Europe",
+    "Christianity",
+    "medium",
+    "The Visigothic sack of Rome unsettles assumptions about Roman permanence.",
+    "It became a symbol of the empire's vulnerability and transformation.",
+    "Sack_of_Rome_(410)"
+  ),
+  milestone(
+    476,
+    "Western Roman Empire Formally Ends",
+    "Post-Classical",
+    "Western Europe",
+    "Christianity",
+    "high",
+    "The deposition of Romulus Augustulus traditionally marks the fall of the Western Roman Empire.",
+    "It became one of the most famous dividing points in European historical narratives.",
+    "Fall_of_the_Western_Roman_Empire"
+  ),
+  milestone(
+    527,
+    "Justinian's Reign Renews Byzantine Ambition",
+    "Post-Classical",
+    "Eastern Mediterranean",
+    "Christianity",
+    "medium",
+    "The Byzantine emperor Justinian pursues reconquest, law reform, and monumental building.",
+    "His reign left major marks on legal history, imperial ideology, and Christian architecture.",
+    "Justinian_I"
+  ),
+  milestone(
+    622,
+    "Hijra Marks the Beginning of the Islamic Calendar",
+    "Post-Classical",
+    "Arabia",
+    "Islam",
+    "high",
+    "Muhammad's migration from Mecca to Medina becomes a founding moment in Islamic history.",
+    "It marks the beginning of the Islamic calendar and a new religious-political community.",
+    "Hijrah"
+  ),
+  milestone(
+    632,
+    "Rashidun Caliphate Expands Islam Rapidly",
+    "Post-Classical",
+    "Middle East and North Africa",
+    "Islam",
+    "high",
+    "After Muhammad's death, early caliphs guide rapid religious and political expansion.",
+    "These decades permanently transformed the Middle East and beyond.",
+    "Rashidun_Caliphate"
+  ),
+  milestone(
+    661,
+    "Umayyad Caliphate Builds a Transregional Empire",
+    "Post-Classical",
+    "Middle East, North Africa, Iberia",
+    "Islam",
+    "medium",
+    "The Umayyads rule an empire stretching from Iberia to Central Asia.",
+    "Islamic governance, trade, and culture took on durable imperial form under their rule.",
+    "Umayyad_Caliphate"
+  ),
+  milestone(
+    750,
+    "Abbasid Revolution Moves the Center of Islamic Power",
+    "Post-Classical",
+    "Middle East",
+    "Islam",
+    "medium",
+    "The Abbasids overthrow the Umayyads and foster new political and intellectual centers.",
+    "Baghdad and the Abbasid world became major hubs of scholarship and exchange.",
+    "Abbasid_Revolution"
+  ),
+  milestone(
+    868,
+    "Printed Diamond Sutra Demonstrates Early Printing",
+    "Post-Classical",
+    "China",
+    "Buddhism",
+    "medium",
+    "The Diamond Sutra is one of the oldest known dated printed books.",
+    "Printing transformed how texts, doctrine, and learning could circulate.",
+    "Diamond_Sutra"
+  ),
+  milestone(
+    960,
+    "Song Dynasty Begins a New Era of Innovation",
+    "Post-Classical",
+    "China",
+    "Confucian / Chinese Traditions",
+    "medium",
+    "Song rule is associated with commercial growth, urban change, and technological innovation.",
+    "It became one of the world's most dynamic premodern economies.",
+    "Song_dynasty"
+  ),
+  milestone(
+    1054,
+    "Great Schism Deepens East-West Christian Division",
+    "Post-Classical",
+    "Eastern Mediterranean and Europe",
+    "Christianity",
+    "medium",
+    "Tensions between Latin and Greek Christian authorities harden into lasting division.",
+    "The split helped shape the later histories of Roman Catholicism and Eastern Orthodoxy.",
+    "East–West_Schism"
+  ),
+  milestone(
+    1066,
+    "Norman Conquest Transforms England",
+    "Post-Classical",
+    "England",
+    "Christianity",
+    "medium",
+    "William of Normandy conquers England and remakes elite power structures.",
+    "The conquest influenced language, law, aristocracy, and the English state.",
+    "Norman_Conquest"
+  ),
+  milestone(
+    1206,
+    "Mongol Empire Forms Under Genghis Khan",
+    "Post-Classical",
+    "Inner Asia and Eurasia",
+    "Religiously Diverse",
+    "high",
+    "Genghis Khan unites Mongol groups and launches a vast imperial expansion.",
+    "The Mongol Empire reordered Eurasian politics, exchange, and mobility on a continental scale.",
+    "Mongol_Empire"
+  ),
+  milestone(
+    1236,
+    "Mali Empire Expands in West Africa",
+    "Post-Classical",
+    "West Africa",
+    "Islam",
+    "medium",
+    "The Mali Empire grows into a major West African power with strong trade links.",
+    "It highlights the central role of African states in gold, scholarship, and regional politics.",
+    "Mali_Empire"
+  ),
+  milestone(
+    1324,
+    "Mansa Musa's Pilgrimage Draws Global Attention",
+    "Post-Classical",
+    "West Africa and the Middle East",
+    "Islam",
+    "medium",
+    "Mansa Musa's pilgrimage to Mecca becomes famous for wealth, diplomacy, and prestige.",
+    "It made Mali widely known across Afro-Eurasian networks.",
+    "Mansa_Musa"
+  ),
+  milestone(
+    1405,
+    "Zheng He's Voyages Project Ming Power Overseas",
+    "Post-Classical",
+    "Indian Ocean",
+    "Confucian / Chinese Traditions",
+    "medium",
+    "Large Ming fleets sail across the Indian Ocean under Zheng He.",
+    "These voyages demonstrated maritime capacity, diplomacy, and exchange on a grand scale.",
+    "Zheng_He"
+  ),
+  milestone(
+    1438,
+    "Inca Empire Consolidates in the Andes",
+    "Early Modern",
+    "Andes",
+    "Ancient / Indigenous Traditions",
+    "medium",
+    "The Inca state expands through administration, roads, labor systems, and military force.",
+    "It became the largest empire in pre-Columbian South America.",
+    "Inca_Empire"
+  ),
+  milestone(
+    1450,
+    "Printing Press Accelerates Text Culture in Europe",
+    "Early Modern",
+    "Europe",
+    "Christianity",
+    "high",
+    "Movable type printing spreads rapidly in Europe after Gutenberg's innovations.",
+    "Print transformed religion, science, literacy, administration, and political debate.",
+    "Printing_press"
+  ),
+  milestone(
+    1498,
+    "Sea Route to India Reorients Global Trade",
+    "Early Modern",
+    "Indian Ocean",
+    "Religiously Diverse",
+    "medium",
+    "Vasco da Gama's voyage by sea to India links Atlantic and Indian Ocean ambitions.",
+    "It intensified maritime empire, trade competition, and colonial expansion.",
+    "Vasco_da_Gama"
+  ),
+  milestone(
+    1519,
+    "Magellan-Elcano Expedition Circles the Globe",
+    "Early Modern",
+    "Global Oceans",
+    "Christianity",
+    "medium",
+    "The first circumnavigation demonstrates the global scale of oceanic navigation.",
+    "It made worldwide maritime connection more concrete and strategic.",
+    "Magellan_expedition"
+  ),
+  milestone(
+    1526,
+    "Mughal Empire Establishes a New Imperial Order",
+    "Early Modern",
+    "South Asia",
+    "Islam",
+    "medium",
+    "Babur's victory at Panipat lays the foundation for Mughal rule in South Asia.",
+    "The Mughal Empire profoundly shaped art, architecture, governance, and economy.",
+    "Mughal_Empire"
+  ),
+  milestone(
+    1600,
+    "English East India Company Is Chartered",
+    "Early Modern",
+    "Atlantic and Indian Ocean worlds",
+    "Christianity",
+    "medium",
+    "A chartered trading company becomes a major vehicle for empire and commerce.",
+    "It helped link corporate power, colonial expansion, and global capitalism.",
+    "East_India_Company"
+  ),
+  milestone(
+    1603,
+    "Tokugawa Shogunate Brings Long Internal Stability",
+    "Early Modern",
+    "Japan",
+    "Confucian / Chinese Traditions",
+    "medium",
+    "Tokugawa rule stabilizes Japan after long conflict.",
+    "The shogunate shaped social order, urban culture, and Japan's path into modernity.",
+    "Tokugawa_shogunate"
+  ),
+  milestone(
+    1687,
+    "Newton's Principia Reframes Natural Philosophy",
+    "Early Modern",
+    "Europe",
+    "Christianity / Secular Thought",
+    "medium",
+    "Newton's Principia presents a mathematically unified account of motion and gravitation.",
+    "It became one of the landmark texts of the Scientific Revolution.",
+    "Philosophiæ_Naturalis_Principia_Mathematica"
+  ),
+  milestone(
+    1707,
+    "Kingdom of Great Britain Is Formed",
+    "Early Modern",
+    "British Isles",
+    "Christianity",
+    "medium",
+    "The union of England and Scotland creates Great Britain.",
+    "The new state became a major imperial, commercial, and industrial power.",
+    "Kingdom_of_Great_Britain"
+  ),
+  milestone(
+    1751,
+    "Encyclopedie Spreads Enlightenment Thought",
+    "Early Modern",
+    "Europe",
+    "Christianity / Secular Thought",
+    "medium",
+    "The Encyclopedie gathers and circulates Enlightenment knowledge and criticism.",
+    "It became a major symbol of reason, critique, and intellectual modernity.",
+    "Encyclopédie"
+  ),
+  milestone(
+    1804,
+    "Haiti Becomes the First Black Republic",
+    "Age of Revolutions",
+    "Caribbean",
+    "Christianity / Afro-Atlantic Traditions",
+    "high",
+    "The Haitian Revolution ends in independence after defeating slavery and colonial rule.",
+    "It transformed Atlantic politics and remains one of the most radical revolutions in history.",
+    "Haiti"
+  ),
+  milestone(
+    1804,
+    "Napoleon Crowns Himself Emperor",
+    "Age of Revolutions",
+    "Europe",
+    "Christianity / Secular Thought",
+    "medium",
+    "Napoleon turns revolutionary France toward imperial rule under his authority.",
+    "Napoleonic warfare and reform reshaped Europe and its political order.",
+    "Napoleon"
+  ),
+  milestone(
+    1815,
+    "Congress of Vienna Redraws Post-Napoleonic Europe",
+    "Age of Revolutions",
+    "Europe",
+    "Christianity / Secular Thought",
+    "medium",
+    "European powers attempt to restore balance after the Napoleonic Wars.",
+    "The settlement influenced diplomacy, legitimacy, and international order for decades.",
+    "Congress_of_Vienna"
+  ),
+  milestone(
+    1821,
+    "Greek War of Independence Begins",
+    "Age of Revolutions",
+    "Southeastern Europe",
+    "Christianity",
+    "medium",
+    "Greek rebels challenge Ottoman rule in a war that draws transnational support.",
+    "It became a major nationalist milestone in nineteenth-century Europe.",
+    "Greek_War_of_Independence"
+  ),
+  milestone(
+    1830,
+    "Revolutions of 1830 Spread Constitutional Pressure",
+    "Age of Revolutions",
+    "Europe",
+    "Christianity / Secular Thought",
+    "medium",
+    "Political uprisings push against conservative post-1815 settlements.",
+    "They kept constitutionalism and nationalism at the center of European politics.",
+    "Revolutions_of_1830"
+  ),
+  milestone(
+    1848,
+    "Revolutions of 1848 Shake Europe",
+    "Age of Revolutions",
+    "Europe",
+    "Christianity / Secular Thought",
+    "high",
+    "Revolutionary movements challenge monarchies and demand political reform across Europe.",
+    "Although many failed immediately, they influenced nationalism, labor politics, and constitutional change.",
+    "Revolutions_of_1848"
+  ),
+  milestone(
+    1861,
+    "Italian Unification Advances Under the Kingdom of Italy",
+    "Age of Revolutions",
+    "Italy",
+    "Christianity",
+    "medium",
+    "The kingdom of Italy is proclaimed amid the Risorgimento.",
+    "Italian unification helped redefine nationalism and state-building in Europe.",
+    "Unification_of_Italy"
+  ),
+  milestone(
+    1868,
+    "Meiji Restoration Launches Rapid State Transformation",
+    "Age of Revolutions",
+    "Japan",
+    "Confucian / Chinese Traditions",
+    "high",
+    "Political change restores imperial rule and accelerates modernization in Japan.",
+    "Japan's institutions, military, and industry changed at remarkable speed.",
+    "Meiji_Restoration"
+  ),
+  milestone(
+    1837,
+    "Telegraph Networks Begin a New Communications Age",
+    "Industrial World",
+    "Europe and North America",
+    "Secular / Multi-faith",
+    "medium",
+    "Electrical telegraphy allows information to travel much faster than physical transport.",
+    "It transformed war, trade, news, and governance through near-instant long-distance messaging.",
+    "Electrical_telegraph"
+  ),
+  milestone(
+    1853,
+    "Perry Expedition Forces Japan's Opening",
+    "Industrial World",
+    "Japan",
+    "Confucian / Chinese Traditions",
+    "medium",
+    "American naval pressure compels Japan to open to new diplomatic and trade arrangements.",
+    "The event helped set the stage for later Japanese transformation and imperial competition.",
+    "Perry_Expedition"
+  ),
+  milestone(
+    1859,
+    "Darwin Publishes On the Origin of Species",
+    "Industrial World",
+    "Europe",
+    "Christianity / Secular Thought",
+    "medium",
+    "Darwin's work presents a groundbreaking account of evolution by natural selection.",
+    "It changed biology and generated profound philosophical, religious, and social debates.",
+    "On_the_Origin_of_Species"
+  ),
+  milestone(
+    1861,
+    "American Civil War Begins",
+    "Industrial World",
+    "North America",
+    "Christianity",
+    "high",
+    "The United States descends into civil war over union, slavery, and political power.",
+    "The conflict reshaped the American state and the future of slavery in the Atlantic world.",
+    "American_Civil_War"
+  ),
+  milestone(
+    1869,
+    "Suez Canal Opens Between Mediterranean and Red Sea",
+    "Industrial World",
+    "Egypt",
+    "Islam",
+    "medium",
+    "The canal radically shortens the sea route between Europe and Asia.",
+    "It became one of the most strategic waterways in modern global trade and empire.",
+    "Suez_Canal"
+  ),
+  milestone(
+    1871,
+    "German Empire Is Proclaimed",
+    "Industrial World",
+    "Central Europe",
+    "Christianity",
+    "medium",
+    "German unification under Prussian leadership creates a powerful new European state.",
+    "Its rise altered the balance of power that shaped later European conflict.",
+    "German_Empire"
+  ),
+  milestone(
+    1876,
+    "Telephone Enters Modern Communications History",
+    "Industrial World",
+    "North America and Europe",
+    "Secular / Multi-faith",
+    "medium",
+    "The telephone becomes a transformative new communications technology.",
+    "Voice communication over distance changes business, domestic life, and infrastructure.",
+    "Telephone"
+  ),
+  milestone(
+    1884,
+    "Berlin Conference Formalizes the Scramble for Africa",
+    "Industrial World",
+    "Africa and Europe",
+    "Christianity / Secular Thought",
+    "high",
+    "European powers negotiate rules for colonial claims in Africa without African consent.",
+    "The conference became a major symbol of imperial partition and colonial violence.",
+    "Berlin_Conference"
+  ),
+  milestone(
+    1903,
+    "Powered Flight Becomes a Reality",
+    "Industrial World",
+    "North America",
+    "Secular / Multi-faith",
+    "medium",
+    "The Wright brothers achieve controlled powered flight.",
+    "Air travel, warfare, logistics, and global connectivity would all be transformed.",
+    "Wright_brothers"
+  ),
+  milestone(
+    1911,
+    "Xinhai Revolution Ends Qing Imperial Rule",
+    "Industrial World",
+    "China",
+    "Confucian / Chinese Traditions",
+    "high",
+    "Revolutionary movements topple the Qing dynasty and end imperial rule in China.",
+    "The event opened a new and turbulent era in modern Chinese politics.",
+    "1911_Revolution"
+  ),
+  milestone(
+    1917,
+    "Russian Revolution Topples the Tsarist Order",
+    "World Wars",
+    "Russia",
+    "Christianity / Secular Thought",
+    "high",
+    "Revolution in Russia overturns monarchy and eventually brings Bolshevik rule to power.",
+    "It reshaped global politics, ideology, and the twentieth century state system.",
+    "Russian_Revolution"
+  ),
+  milestone(
+    1918,
+    "World War I Ends After Vast Destruction",
+    "World Wars",
+    "Europe and Global",
+    "Religiously Diverse",
+    "high",
+    "The armistice ends a catastrophic industrial war that destroyed empires and societies.",
+    "Its aftermath helped produce new states, resentments, and international experiments.",
+    "Armistice_of_11_November_1918"
+  ),
+  milestone(
+    1919,
+    "Treaty of Versailles Attempts to Redefine Peace",
+    "World Wars",
+    "Europe and Global",
+    "Religiously Diverse",
+    "medium",
+    "The treaty imposes terms on Germany and redraws parts of the postwar order.",
+    "It became one of the most debated settlements in modern diplomatic history.",
+    "Treaty_of_Versailles"
+  ),
+  milestone(
+    1929,
+    "Great Depression Spreads Through the Global Economy",
+    "World Wars",
+    "Global",
+    "Religiously Diverse",
+    "high",
+    "Financial collapse and economic contraction destabilize governments and daily life worldwide.",
+    "The depression helped reshape economic policy and intensified political extremism.",
+    "Great_Depression"
+  ),
+  milestone(
+    1941,
+    "Attack on Pearl Harbor Globalizes the Pacific War",
+    "World Wars",
+    "Pacific",
+    "Religiously Diverse",
+    "medium",
+    "Japan's attack on Pearl Harbor draws the United States directly into World War II.",
+    "The war becomes even more deeply global in scale and consequence.",
+    "Attack_on_Pearl_Harbor"
+  ),
+  milestone(
+    1945,
+    "United Nations Is Founded",
+    "World Wars",
+    "Global",
+    "Secular / Multi-faith",
+    "high",
+    "The United Nations is established after World War II to create a new international framework.",
+    "It became the most important intergovernmental institution of the postwar era.",
+    "United_Nations"
+  ),
+  milestone(
+    1945,
+    "Atomic Bombings Reveal the Nuclear Age",
+    "World Wars",
+    "Japan",
+    "Secular / Multi-faith",
+    "high",
+    "The bombings of Hiroshima and Nagasaki demonstrate unprecedented destructive power.",
+    "Nuclear weapons permanently altered warfare, diplomacy, and existential risk.",
+    "Atomic_bombings_of_Hiroshima_and_Nagasaki"
+  ),
+  milestone(
+    1947,
+    "Partition and Independence Reshape South Asia",
+    "Cold War and Decolonization",
+    "South Asia",
+    "Hinduism / Islam",
+    "high",
+    "British India is partitioned as India and Pakistan become independent states.",
+    "The event transformed South Asian politics through freedom, migration, and violence.",
+    "Partition_of_India"
+  ),
+  milestone(
+    1949,
+    "People's Republic of China Is Proclaimed",
+    "Cold War and Decolonization",
+    "China",
+    "Secular / Multi-faith",
+    "high",
+    "Communist victory in the Chinese Civil War leads to the proclamation of the People's Republic of China.",
+    "This became one of the defining political shifts of the twentieth century.",
+    "People's_Republic_of_China"
+  ),
+  milestone(
+    1955,
+    "Bandung Conference Elevates the Postcolonial World",
+    "Cold War and Decolonization",
+    "Asia and Africa",
+    "Religiously Diverse",
+    "medium",
+    "Leaders from Asia and Africa gather in Bandung to discuss solidarity and independence.",
+    "The meeting became an emblem of decolonization and non-alignment.",
+    "Bandung_Conference"
+  ),
+  milestone(
+    1957,
+    "Sputnik Opens the Space Age",
+    "Cold War and Decolonization",
+    "Global",
+    "Secular / Multi-faith",
+    "medium",
+    "The Soviet launch of Sputnik shocks rivals and begins the space age in earnest.",
+    "Space exploration became a major arena of science, prestige, and strategic competition.",
+    "Sputnik_1"
+  ),
+  milestone(
+    1960,
+    "Year of Africa Accelerates Decolonization",
+    "Cold War and Decolonization",
+    "Africa",
+    "Religiously Diverse",
+    "high",
+    "Seventeen African countries gain independence in 1960.",
+    "The year symbolizes the rapid collapse of European colonial rule in Africa.",
+    "Year_of_Africa"
+  ),
+  milestone(
+    1962,
+    "Cuban Missile Crisis Brings Nuclear Brinkmanship to a Peak",
+    "Cold War and Decolonization",
+    "Caribbean and Global",
+    "Secular / Multi-faith",
+    "high",
+    "The United States and Soviet Union confront each other over missiles in Cuba.",
+    "It remains one of the most dangerous moments of the nuclear era.",
+    "Cuban_Missile_Crisis"
+  ),
+  milestone(
+    1963,
+    "Organization of African Unity Is Founded",
+    "Cold War and Decolonization",
+    "Africa",
+    "Religiously Diverse",
+    "medium",
+    "Independent African states create a continental political organization.",
+    "The institution aimed to coordinate decolonization, diplomacy, and African cooperation.",
+    "Organisation_of_African_Unity"
+  ),
+  milestone(
+    1971,
+    "Bangladesh Emerges as an Independent State",
+    "Cold War and Decolonization",
+    "South Asia",
+    "Islam",
+    "medium",
+    "War and secession lead to the independence of Bangladesh.",
+    "The event reshaped the political geography of South Asia.",
+    "Bangladesh_Liberation_War"
+  ),
+  milestone(
+    1973,
+    "Oil Crisis Shows the Power of Energy Politics",
+    "Cold War and Decolonization",
+    "Global",
+    "Religiously Diverse",
+    "medium",
+    "Oil embargoes and price shocks create major economic disruption.",
+    "Energy vulnerability becomes a defining issue in modern geopolitics.",
+    "1973_oil_crisis"
+  ),
+  milestone(
+    1979,
+    "Iranian Revolution Overthrows the Shah",
+    "Cold War and Decolonization",
+    "Iran",
+    "Islam",
+    "high",
+    "Mass upheaval ends the Pahlavi monarchy and establishes the Islamic Republic.",
+    "The revolution had lasting regional and global effects on politics and religion.",
+    "Iranian_Revolution"
+  ),
+  milestone(
+    1991,
+    "Soviet Union Dissolves",
+    "Cold War and Decolonization",
+    "Eurasia",
+    "Secular / Multi-faith",
+    "high",
+    "The Soviet Union formally collapses at the end of the Cold War.",
+    "Its dissolution transformed global power, ideology, and international relations.",
+    "Dissolution_of_the_Soviet_Union"
+  ),
+  milestone(
+    1994,
+    "Apartheid Ends in South Africa",
+    "Cold War and Decolonization",
+    "South Africa",
+    "Christianity / Indigenous Traditions",
+    "high",
+    "South Africa holds its first fully democratic election after apartheid.",
+    "The transition became a defining landmark in the global history of racial justice and democracy.",
+    "1994_South_African_general_election"
+  ),
+  milestone(
+    1995,
+    "World Trade Organization Begins Global Operations",
+    "Cold War and Decolonization",
+    "Global",
+    "Secular / Multi-faith",
+    "medium",
+    "The WTO begins operating as a major institution governing global trade rules.",
+    "It became central to debates about globalization, sovereignty, and economic integration.",
+    "World_Trade_Organization"
+  ),
+  milestone(
+    2001,
+    "September 11 Attacks Reshape Global Security Politics",
+    "Contemporary World",
+    "United States and Global",
+    "Secular / Multi-faith",
+    "high",
+    "The attacks of September 11, 2001 trigger wars, surveillance expansion, and new security doctrines.",
+    "Their consequences shaped geopolitics, migration, and civil liberties in the twenty-first century.",
+    "September_11_attacks"
+  ),
+  milestone(
+    2004,
+    "Indian Ocean Tsunami Reveals Shared Global Vulnerability",
+    "Contemporary World",
+    "Indian Ocean",
+    "Religiously Diverse",
+    "medium",
+    "A massive tsunami kills large numbers of people across multiple countries.",
+    "The disaster underscored the importance of warning systems, aid coordination, and climate resilience.",
+    "2004_Indian_Ocean_earthquake_and_tsunami"
+  ),
+  milestone(
+    2007,
+    "Smartphone Era Accelerates Mobile Digital Life",
+    "Contemporary World",
+    "Global",
+    "Secular / Multi-faith",
+    "medium",
+    "The modern smartphone becomes a central device for communication, media, and everyday life.",
+    "Mobile computing reshaped attention, politics, work, and social interaction worldwide.",
+    "IPhone_(1st_generation)"
+  ),
+  milestone(
+    2008,
+    "Global Financial Crisis Shakes World Economies",
+    "Contemporary World",
+    "Global",
+    "Secular / Multi-faith",
+    "high",
+    "The financial crisis triggers recession, bank failures, and major policy responses.",
+    "Its effects altered politics, inequality debates, and trust in institutions.",
+    "2007–2008_financial_crisis"
+  ),
+  milestone(
+    2011,
+    "Arab Spring Uprisings Sweep Multiple States",
+    "Contemporary World",
+    "Middle East and North Africa",
+    "Islam",
+    "high",
+    "Popular uprisings challenge regimes across the Arab world.",
+    "The outcomes varied sharply, but the uprisings reshaped regional politics and public life.",
+    "Arab_Spring"
+  ),
+  milestone(
+    2015,
+    "Paris Climate Agreement Sets a Shared Global Framework",
+    "Contemporary World",
+    "Global",
+    "Secular / Multi-faith",
+    "medium",
+    "Governments adopt a major international framework for addressing climate change.",
+    "It became a central reference point for contemporary climate politics.",
+    "Paris_Agreement"
+  ),
+  milestone(
+    2016,
+    "Brexit Referendum Opens a New Chapter in European Politics",
+    "Contemporary World",
+    "United Kingdom and Europe",
+    "Secular / Multi-faith",
+    "medium",
+    "Voters in the United Kingdom choose to leave the European Union.",
+    "The result triggered years of negotiation and wider debate about sovereignty and integration.",
+    "2016_United_Kingdom_European_Union_membership_referendum"
+  ),
+  milestone(
+    2022,
+    "Russia's Full-Scale Invasion of Ukraine Reorders European Security",
+    "Contemporary World",
+    "Europe",
+    "Christianity",
+    "high",
+    "The 2022 invasion triggers major war, displacement, sanctions, and global political consequences.",
+    "It reshaped debates about sovereignty, alliance systems, and energy security.",
+    "Russian_invasion_of_Ukraine"
+  ),
+];
+
+const HISTORY_DATA = [...BASE_HISTORY_DATA, ...SUPPLEMENTAL_HISTORY_DATA].map(
+  normalizeHistoryEntry
+);

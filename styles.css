@@ -693,6 +693,40 @@ button:focus-visible {
   line-height: 1.65;
 }
 
+.timeline-actions,
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.wiki-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--surface-3);
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.wiki-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--hover-line);
+  background: linear-gradient(135deg, var(--selected-surface-a), var(--selected-surface-b));
+}
+
+.wiki-link-detail {
+  background: linear-gradient(135deg, var(--accent-2), var(--accent-soft));
+  color: var(--button-ink);
+}
+
 .timeline-meta,
 .detail-meta {
   display: flex;
