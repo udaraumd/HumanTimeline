@@ -62,12 +62,10 @@ const MAIN_RELIGION_ORDER = [
   "Secular / Multi-faith",
 ];
 
-const FEATURED_MILESTONES = [
-  { title: "Earliest Known Homo sapiens", icon: "◎" },
-  { title: "Writing Emerges in Mesopotamia", icon: "✦" },
-  { title: "Life of Siddhartha Gautama, the Buddha", icon: "☸" },
-  { title: "Industrialization Accelerates Worldwide", icon: "⚙" },
-  { title: "Humans Land on the Moon", icon: "◐" },
+const FEATURED_ERAS = [
+  { era: "Origins", icon: "◎" },
+  { era: "Ancient Civilizations", icon: "✦" },
+  { era: "Contemporary World", icon: "◐" },
 ];
 
 function toMainReligion(religion) {
@@ -211,20 +209,23 @@ function renderImageBlock(entry) {
 function buildFeaturedMilestones() {
   if (!heroMilestones) return;
 
-  heroMilestones.innerHTML = FEATURED_MILESTONES.map((item) => {
-    const event = HISTORY_DATA.find((entry) => entry.title === item.title);
+  heroMilestones.innerHTML = FEATURED_ERAS.map((item) => {
+    const event = HISTORY_DATA
+      .filter((entry) => entry.era === item.era)
+      .sort((a, b) => a.year - b.year)[0];
     if (!event) return "";
+    const label = localizeEra(item.era);
 
     return `
       <button
         class="milestone-button"
         data-year="${event.year}"
         data-id="${event.year}-${event.title}"
-        aria-label="${getEventTitle(event)}"
+        aria-label="${label}"
       >
         <span class="milestone-icon" aria-hidden="true">${item.icon}</span>
         <span class="milestone-copy">
-          <strong>${getEventTitle(event)}</strong>
+          <strong>${label}</strong>
           <small>${formatYear(event.year)}</small>
         </span>
       </button>
