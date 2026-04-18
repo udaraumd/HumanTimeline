@@ -45,6 +45,8 @@ const spotlightTitle = document.getElementById("spotlightTitle");
 const eraFilters = document.getElementById("eraFilters");
 const religionFilters = document.getElementById("religionFilters");
 const heroStats = document.getElementById("heroStats");
+const heroMilestones = document.getElementById("heroMilestones");
+const backToTopButton = document.getElementById("backToTop");
 const root = document.body;
 
 const ALL_ERAS = [...new Set(HISTORY_DATA.map((entry) => entry.era))];
@@ -58,6 +60,14 @@ const MAIN_RELIGION_ORDER = [
   "Islam",
   "Judaism",
   "Secular / Multi-faith",
+];
+
+const FEATURED_MILESTONES = [
+  { title: "Earliest Known Homo sapiens", icon: "◎" },
+  { title: "Writing Emerges in Mesopotamia", icon: "✦" },
+  { title: "Life of Siddhartha Gautama, the Buddha", icon: "☸" },
+  { title: "Industrialization Accelerates Worldwide", icon: "⚙" },
+  { title: "Humans Land on the Moon", icon: "◐" },
 ];
 
 function toMainReligion(religion) {
@@ -196,6 +206,46 @@ function renderImageBlock(entry) {
       </a>
     </figure>
   `;
+}
+
+function buildFeaturedMilestones() {
+  if (!heroMilestones) return;
+
+  heroMilestones.innerHTML = FEATURED_MILESTONES.map((item) => {
+    const event = HISTORY_DATA.find((entry) => entry.title === item.title);
+    if (!event) return "";
+
+    return `
+      <button
+        class="milestone-button"
+        data-year="${event.year}"
+        data-id="${event.year}-${event.title}"
+        aria-label="${getEventTitle(event)}"
+      >
+        <span class="milestone-icon" aria-hidden="true">${item.icon}</span>
+        <span class="milestone-copy">
+          <strong>${getEventTitle(event)}</strong>
+          <small>${formatYear(event.year)}</small>
+        </span>
+      </button>
+    `;
+  }).join("");
+
+  heroMilestones.querySelectorAll(".milestone-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const year = Number(button.dataset.year);
+      const matched = HISTORY_DATA.find(
+        (entry) => `${entry.year}-${entry.title}` === button.dataset.id
+      );
+      if (!matched || Number.isNaN(year)) return;
+      state.selectedYear = year;
+      state.selectedEventId = button.dataset.id;
+      yearRange.value = String(year);
+      updateSelectedDetail(matched);
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
 }
 
 function buildStats() {
@@ -396,10 +446,9 @@ function applyStaticTranslations() {
   document.getElementById("appEyebrow").textContent = t("appEyebrow");
   document.getElementById("heroTitle").textContent = t("heroTitle");
   document.getElementById("heroText").textContent = t("heroText");
-  document.getElementById("jumpToOrigins").textContent = t("jumpToOrigins");
-  document.getElementById("jumpToToday").textContent = t("jumpToToday");
   document.getElementById("themeDark").textContent = t("themeDark");
   document.getElementById("themeLight").textContent = t("themeLight");
+  if (backToTopButton) backToTopButton.textContent = t("backToTop");
   document.getElementById("spotlightEyebrow").textContent = t("spotlightEyebrow");
   document.getElementById("yearRangeLabel").textContent = t("yearRangeLabel");
   document.getElementById("yearSearchLabel").textContent = t("yearSearchLabel");
@@ -430,6 +479,7 @@ function applyStaticTranslations() {
 function render() {
   applyTheme();
   applyStaticTranslations();
+  buildFeaturedMilestones();
   buildStats();
   buildEraFilters();
   buildReligionFilters();
@@ -472,22 +522,6 @@ document.querySelectorAll(".mode-button").forEach((button) => {
   });
 });
 
-document.getElementById("jumpToToday").addEventListener("click", () => {
-  state.selectedYear = PRESENT_YEAR;
-  state.selectedEventId = null;
-  yearRange.value = String(PRESENT_YEAR);
-  render();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-document.getElementById("jumpToOrigins").addEventListener("click", () => {
-  state.selectedYear = -300000;
-  state.selectedEventId = null;
-  yearRange.value = "-300000";
-  render();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
 document.querySelectorAll(".lang-button").forEach((button) => {
   button.addEventListener("click", () => {
     state.locale = button.dataset.lang;
@@ -501,5 +535,18 @@ document.querySelectorAll(".theme-button").forEach((button) => {
     render();
   });
 });
+
+if (backToTopButton) {
+  const updateBackToTopVisibility = () => {
+    backToTopButton.classList.toggle("is-visible", window.scrollY > 420);
+  };
+
+  backToTopButton.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  window.addEventListener("scroll", updateBackToTopVisibility, { passive: true });
+  updateBackToTopVisibility();
+}
 
 render();
